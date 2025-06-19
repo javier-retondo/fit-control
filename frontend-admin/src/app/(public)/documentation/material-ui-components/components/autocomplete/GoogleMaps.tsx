@@ -15,7 +15,7 @@ import { debounce } from '@mui/material/utils';
 
 // This key was created specifically for the demo in mui.com.
 // You need to create a new one for your application.
-const GOOGLE_MAPS_API_KEY = 'AIzaSyC3aviU6KHXAjoSnxcw6qbOhjnFctbxPkE';
+const GOOGLE_MAPS_API_KEY = '';
 
 const useEnhancedEffect =
   typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
@@ -124,7 +124,8 @@ let sessionToken: any;
 export default function GoogleMaps() {
   const [value, setValue] = React.useState<PlaceType | null>(null);
   const [inputValue, setInputValue] = React.useState('');
-  const [options, setOptions] = React.useState<readonly PlaceType[]>(emptyOptions);
+  const [options, setOptions] =
+    React.useState<readonly PlaceType[]>(emptyOptions);
   const callbackId = React.useId().replace(/:/g, '');
   const [loaded, setLoaded] = React.useState(false);
 
@@ -167,27 +168,32 @@ export default function GoogleMaps() {
       ).google.maps.places.AutocompleteSessionToken();
     }
 
-    fetch({ input: inputValue, sessionToken }, (results?: readonly PlaceType[]) => {
-      if (!active) {
-        return;
-      }
-
-      let newOptions: readonly PlaceType[] = [];
-
-      if (results) {
-        newOptions = results;
-
-        if (value) {
-          newOptions = [
-            value,
-            ...results.filter((result) => result.description !== value.description),
-          ];
+    fetch(
+      { input: inputValue, sessionToken },
+      (results?: readonly PlaceType[]) => {
+        if (!active) {
+          return;
         }
-      } else if (value) {
-        newOptions = [value];
-      }
-      setOptions(newOptions);
-    });
+
+        let newOptions: readonly PlaceType[] = [];
+
+        if (results) {
+          newOptions = results;
+
+          if (value) {
+            newOptions = [
+              value,
+              ...results.filter(
+                (result) => result.description !== value.description,
+              ),
+            ];
+          }
+        } else if (value) {
+          newOptions = [value];
+        }
+        setOptions(newOptions);
+      },
+    );
 
     return () => {
       active = false;
@@ -222,11 +228,15 @@ export default function GoogleMaps() {
       )}
       renderOption={(props, option) => {
         const { key, ...optionProps } = props;
-        const matches = option.structured_formatting.main_text_matched_substrings;
+        const matches =
+          option.structured_formatting.main_text_matched_substrings;
 
         const parts = parse(
           option.structured_formatting.main_text,
-          matches.map((match: any) => [match.offset, match.offset + match.length]),
+          matches.map((match: any) => [
+            match.offset,
+            match.offset + match.length,
+          ]),
         );
         return (
           <li key={key} {...optionProps}>
@@ -328,7 +338,8 @@ const fakeAnswer = {
       },
     },
     {
-      description: 'Paris Las Vegas, South Las Vegas Boulevard, Las Vegas, NV, USA',
+      description:
+        'Paris Las Vegas, South Las Vegas Boulevard, Las Vegas, NV, USA',
       structured_formatting: {
         main_text: 'Paris Las Vegas',
         main_text_matched_substrings: [{ offset: 0, length: 5 }],
@@ -336,7 +347,8 @@ const fakeAnswer = {
       },
     },
     {
-      description: "Paris La Défense Arena, Jardin de l'Arche, Nanterre, France",
+      description:
+        "Paris La Défense Arena, Jardin de l'Arche, Nanterre, France",
       structured_formatting: {
         main_text: 'Paris La Défense Arena',
         main_text_matched_substrings: [{ offset: 0, length: 5 }],
