@@ -3,6 +3,7 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import Slider from 'react-slick';
 import { Parallax } from 'react-scroll-parallax';
+import { theme } from '../../../theme';
 
 const gimnasios = [
   {
@@ -54,7 +55,12 @@ const GimnasiosClientes = () => {
           backgroundColor: 'background.default',
         }}
       >
-        <Typography variant="h4" align="center" gutterBottom>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ color: theme.palette.primary.main }}
+        >
           Gimnasios que confían en FitControl
         </Typography>
         <Typography

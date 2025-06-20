@@ -14,26 +14,41 @@ const LandingFitControl = () => {
         modo="fitcontrol"
         planes={[
           {
-            nombre: 'Essentials',
-            precio: 'AR$ 7.500 / mes',
-            descripcion: 'Ideal para gimnasios pequeños',
-            beneficios: ['Socios, clases, reservas', 'App para socios'],
+            nombre: 'Esencial',
+            precio: 'AR$ 18.000 / mes',
+            descripcion:
+              'Para gimnasios que recién comienzan o con una sola sede',
+            beneficios: [
+              '1 sede',
+              'Hasta 150 socios',
+              'Clases y reservas online',
+              'App para socios',
+              'Soporte por email',
+            ],
           },
           {
             nombre: 'Pro',
-            precio: 'AR$ 12.000 / mes',
-            descripcion: 'Para gimnasios con múltiples sedes',
-            beneficios: ['Todo Essentials', 'Reportes', 'Módulo pagos'],
+            precio: 'AR$ 29.000 / mes',
+            descripcion: 'Para gimnasios en crecimiento con más de una sede',
+            beneficios: [
+              'Hasta 3 sedes',
+              'Hasta 500 socios',
+              'Gestión de pagos',
+              'Reportes avanzados',
+              'Soporte por WhatsApp',
+            ],
             destacado: true,
           },
           {
-            nombre: 'White Label',
-            precio: 'A convenir',
-            descripcion: 'Con tu propia marca y dominio',
+            nombre: 'Max',
+            precio: 'AR$ 42.000 / mes',
+            descripcion: 'Para cadenas o gimnasios con operación completa',
             beneficios: [
-              'Dominio propio',
-              'Landing editable',
-              'Soporte dedicado',
+              'Sedes ilimitadas',
+              'Socios ilimitados',
+              'Integraciones externas',
+              'Módulo de staff completo',
+              'Soporte prioritario',
             ],
           },
         ]}

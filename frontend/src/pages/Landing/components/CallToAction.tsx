@@ -1,4 +1,4 @@
-import { Box, Typography, Button, Stack } from '@mui/material';
+import { Box, Typography, Button, Stack, Modal } from '@mui/material';
 import { Parallax } from 'react-scroll-parallax';
 import { useState } from 'react';
 
@@ -13,6 +13,7 @@ type CTAProps = {
     href: string;
   };
   mostrarBotonSecundario?: boolean;
+  modo?: 'fitcontrol' | 'empresa';
 };
 
 const CallToAction = ({
@@ -25,6 +26,21 @@ const CallToAction = ({
   mostrarBotonSecundario = true,
 }: CTAProps) => {
   const [hovered, setHovered] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const beneficiosFitControl = [
+    'Configuración visual editable (logo, colores, textos)',
+    'Diseño moderno y adaptable a tu marca',
+    'Automatización de recordatorios y mensajes por WhatsApp/email',
+    'Agenda digital para instructores y socios',
+    'Sincronización con Google Calendar',
+    'Panel de administración intuitivo',
+    'Carga de clases y horarios recurrentes',
+    'Análisis y reportes de asistencia y reservas',
+    'Registro de ausencias y notificaciones automáticas',
+    'Comunicación interna con instructores y socios',
+    'Actualizaciones constantes sin costo adicional',
+  ];
 
   return (
     <section id="cta">
@@ -101,9 +117,9 @@ const CallToAction = ({
 
               {mostrarBotonSecundario && (
                 <Button
-                  href="#beneficios"
                   variant="outlined"
                   size="large"
+                  onClick={() => setOpen(true)}
                   sx={{
                     borderColor: 'primary.main',
                     color: 'primary.main',
@@ -121,6 +137,67 @@ const CallToAction = ({
             </Stack>
           </Parallax>
         </Box>
+        <Modal open={open} onClose={() => setOpen(false)}>
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              bgcolor: 'background.paper',
+              p: 4,
+              borderRadius: 2,
+              width: '90%',
+              maxWidth: 600,
+              boxShadow: 24,
+            }}
+          >
+            <Typography
+              variant="h5"
+              gutterBottom
+              sx={{ mb: 2, textAlign: 'center', color: 'primary.main' }}
+            >
+              Beneficios de FitControl
+            </Typography>
+            <ul>
+              {beneficiosFitControl.map((item, i) => (
+                <li key={i}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: 'text.secondary',
+                      marginBottom: 1,
+                      '&:before': {
+                        content: '"• "',
+                        color: 'primary.main',
+                        marginRight: 0.5,
+                      },
+                      display: 'inline-block',
+                      textAlign: 'left',
+                      width: '100%',
+                      lineHeight: 1.5,
+                      fontSize: '0.9rem',
+                      fontWeight: 400,
+                      transition: 'color 0.3s ease',
+                      '&:hover': {
+                        color: 'primary.main',
+                      },
+                    }}
+                  >
+                    {item}
+                  </Typography>
+                </li>
+              ))}
+            </ul>
+            <Button
+              onClick={() => setOpen(false)}
+              variant="contained"
+              sx={{ mt: 2 }}
+            >
+              Cerrar
+            </Button>
+          </Box>
+        </Modal>
       </Box>
     </section>
   );

@@ -1,5 +1,15 @@
-import { Box, Typography, Paper, Button, Grid, Stack } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Paper,
+  Button,
+  Grid,
+  Stack,
+  Collapse,
+} from '@mui/material';
+import { useState } from 'react';
 import { useEmpresaTheme } from '../../../hooks/useEmpresaTheme';
+import WizardPlanPersonalizado from './PlanWizard';
 
 type Plan = {
   nombre: string;
@@ -18,6 +28,8 @@ type Props = {
 const PlanesPrecios = ({ planes, modo, maxVisible }: Props) => {
   const visibles = maxVisible ? planes.slice(0, maxVisible) : planes;
   const theme = useEmpresaTheme();
+  const [mostrarWizard, setMostrarWizard] = useState(false);
+
   return (
     <section id="precios">
       <Box
@@ -74,7 +86,10 @@ const PlanesPrecios = ({ planes, modo, maxVisible }: Props) => {
                 </Typography>
                 <Typography
                   variant="subtitle1"
-                  sx={{ fontWeight: 'bold', color: theme.palette.primary.main }}
+                  sx={{
+                    fontWeight: 'bold',
+                    color: theme.palette.primary.main,
+                  }}
                 >
                   {plan.precio}
                 </Typography>
@@ -143,6 +158,32 @@ const PlanesPrecios = ({ planes, modo, maxVisible }: Props) => {
             >
               Ver todos los planes
             </Button>
+          </Box>
+        )}
+        {modo === 'fitcontrol' && (
+          <Box sx={{ mt: 6 }}>
+            <Button
+              variant="outlined"
+              onClick={() => setMostrarWizard(!mostrarWizard)}
+              sx={{
+                color: theme.palette.primary.main,
+                borderColor: theme.palette.primary.main,
+                fontWeight: 'bold',
+                '&:hover': {
+                  backgroundColor: theme.palette.action.hover,
+                  borderColor: theme.palette.secondary.main,
+                  color: theme.palette.secondary.main,
+                },
+              }}
+            >
+              Quiero un plan personalizado
+            </Button>
+
+            <Collapse in={mostrarWizard} timeout="auto" unmountOnExit>
+              <Box sx={{ mt: 4 }}>
+                <WizardPlanPersonalizado />
+              </Box>
+            </Collapse>
           </Box>
         )}
       </Box>

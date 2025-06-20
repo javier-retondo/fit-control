@@ -34,7 +34,12 @@ const Benefits = () => {
           backgroundColor: 'background.default',
         }}
       >
-        <Typography variant="h4" align="center" gutterBottom>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ color: theme.palette.primary.main }}
+        >
           Beneficios de usar FitControl
         </Typography>
         <Typography

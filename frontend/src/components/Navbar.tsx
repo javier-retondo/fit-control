@@ -136,6 +136,8 @@ const NavBar = () => {
                   fontWeight: 'bold',
                   '&:hover': {
                     color: theme.palette.secondary.main || '#FFC300',
+                    textDecoration: 'none',
+                    backgroundColor: theme.palette.primary.main,
                   },
                 }}
               >
