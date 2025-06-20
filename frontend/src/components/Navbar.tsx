@@ -14,19 +14,30 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
-
-const sections = [
-  { id: 'hero', label: 'Inicio' },
-  { id: 'beneficios', label: 'Beneficios' },
-  { id: 'clases', label: 'Clases' },
-  { id: 'sedes', label: 'Sedes' },
-  { id: 'cta', label: 'Contacto' },
-];
+import { useEmpresa } from '../context/EmpresaContext';
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
+  const { empresa } = useEmpresa();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  const isFitControl = !empresa?.slug || empresa.slug === 'fitcontrol';
+
+  const sections = isFitControl
+    ? [
+        { id: 'hero', label: 'Inicio' },
+        { id: 'beneficios', label: 'Beneficios' },
+        { id: 'gimnasios', label: 'Gimnasios' },
+        { id: 'precios', label: 'Planes' },
+        { id: 'cta', label: 'Contacto' },
+      ]
+    : [
+        { id: 'hero', label: 'Inicio' },
+        { id: 'clases', label: 'Clases' },
+        { id: 'sedes', label: 'Sedes' },
+        { id: 'cta', label: 'Contacto' },
+      ];
 
   const scrollToSection = (id: string) => {
     const anchor = document.getElementById(id);
@@ -43,17 +54,23 @@ const NavBar = () => {
       position="sticky"
       elevation={0}
       sx={{
-        backgroundColor: 'rgba(0, 0, 0, 0.85)',
+        backgroundColor: theme.palette.background.default,
         backdropFilter: 'blur(8px)',
-        borderBottom: '1px solid #333',
+        borderBottom: `1px solid ${theme.palette.divider}`,
         zIndex: 1100,
       }}
     >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
-        <Box sx={{ fontWeight: 'bold', color: 'primary.main', fontSize: 20 }}>
+        <Box
+          sx={{
+            fontWeight: 'bold',
+            color: theme.palette.primary.main,
+            fontSize: 20,
+          }}
+        >
           <img
-            src="/img/logo.png"
-            alt="Logo FitControl"
+            src={empresa?.logo || '/img/logo.png'}
+            alt={empresa?.nombre || 'Logo FitControl'}
             style={{
               width: 24,
               height: 24,
@@ -65,18 +82,18 @@ const NavBar = () => {
           <label
             style={{
               fontWeight: 'bold',
-              color: 'primary.main',
+              color: theme.palette.primary.main,
               verticalAlign: 'middle',
             }}
           >
-            FitControl
+            {empresa?.nombre || 'FitControl'}
           </label>
         </Box>
         {isMobile ? (
           <>
             <IconButton
               onClick={() => setOpen(true)}
-              sx={{ color: 'primary.main' }}
+              sx={{ color: theme.palette.primary.main }}
             >
               <MenuIcon />
             </IconButton>
@@ -109,16 +126,17 @@ const NavBar = () => {
             </Drawer>
           </>
         ) : (
-          // Desktop
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             {sections.map((section) => (
               <Button
                 key={section.id}
                 onClick={() => scrollToSection(section.id)}
                 sx={{
-                  color: 'primary.main',
+                  color: theme.palette.primary.main,
                   fontWeight: 'bold',
-                  '&:hover': { color: '#FFC300' },
+                  '&:hover': {
+                    color: theme.palette.secondary.main || '#FFC300',
+                  },
                 }}
               >
                 {section.label}
@@ -129,11 +147,12 @@ const NavBar = () => {
               variant="contained"
               sx={{
                 ml: 2,
-                backgroundColor: 'primary.main',
-                color: 'background.default',
                 fontWeight: 'bold',
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.background.default,
                 '&:hover': {
-                  backgroundColor: '#FFC300',
+                  backgroundColor: theme.palette.secondary.main || '#FFC300',
+                  color: theme.palette.text.primary,
                 },
               }}
             >

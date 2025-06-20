@@ -1,24 +1,32 @@
 import { Box, Typography, Paper } from '@mui/material';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { Parallax } from 'react-scroll-parallax';
 import Slider from 'react-slick';
+import { Parallax } from 'react-scroll-parallax';
 
-type Sede = {
-  nombre: string;
-  direccion: string;
-  horarios: string;
-  imagen: string;
-};
-
-type LocationsProps = {
-  locations: Sede[];
-  titulo?: string;
-  subtitulo?: string;
-};
+const gimnasios = [
+  {
+    nombre: 'Energym',
+    zona: 'Palermo, CABA',
+    tiempoUso: 'Usan FitControl desde 2023',
+    imagen: '/img/sede_1.png',
+  },
+  {
+    nombre: 'PowerHouse',
+    zona: 'Ramos Mejía, GBA Oeste',
+    tiempoUso: 'Más de 18 meses usando FitControl',
+    imagen: '/img/sede_2.webp',
+  },
+  {
+    nombre: 'FitZone',
+    zona: 'Córdoba Capital',
+    tiempoUso: 'Confían en FitControl desde 2022',
+    imagen: '/img/sede_3.webp',
+  },
+];
 
 const sliderSettings = {
-  dots: false,
+  dots: true,
   infinite: true,
   speed: 700,
   slidesToShow: 3,
@@ -35,13 +43,9 @@ const sliderSettings = {
   ],
 };
 
-const Locations = ({
-  locations,
-  titulo = 'Nuestras Sedes',
-  subtitulo = 'Elegí la sede más cercana y conocé sus horarios de atención.',
-}: LocationsProps) => {
+const GimnasiosClientes = () => {
   return (
-    <section id="sedes">
+    <section id="gimnasios">
       <Box
         sx={{
           py: 10,
@@ -51,19 +55,19 @@ const Locations = ({
         }}
       >
         <Typography variant="h4" align="center" gutterBottom>
-          {titulo}
+          Gimnasios que confían en FitControl
         </Typography>
         <Typography
           variant="subtitle1"
           align="center"
           sx={{ mb: 6, color: 'text.secondary' }}
         >
-          {subtitulo}
+          Estas marcas ya están transformando su gestión con nuestra plataforma.
         </Typography>
 
         <Box sx={{ width: '100%', maxWidth: '1400px', mx: 'auto' }}>
           <Slider {...sliderSettings}>
-            {locations.map((location, index) => (
+            {gimnasios.map((gimnasio, index) => (
               <Box key={index} sx={{ px: 2 }}>
                 <Parallax speed={-5}>
                   <Paper
@@ -78,8 +82,8 @@ const Locations = ({
                   >
                     <Box
                       component="img"
-                      src={location.imagen}
-                      alt={location.nombre}
+                      src={gimnasio.imagen}
+                      alt={gimnasio.nombre}
                       sx={{
                         width: '100%',
                         height: 220,
@@ -87,32 +91,31 @@ const Locations = ({
                       }}
                     />
                     <Box sx={{ p: 3 }}>
-                      <Typography variant="h6">{location.nombre}</Typography>
+                      <Typography variant="h6">{gimnasio.nombre}</Typography>
 
                       <Box
                         sx={{ display: 'flex', alignItems: 'center', mt: 1 }}
                       >
-                        <LocationOnIcon sx={{ mr: 1, color: 'primary.main' }} />
+                        <VerifiedUserIcon
+                          sx={{ mr: 1, color: 'primary.main' }}
+                        />
                         <Typography
                           variant="body2"
                           sx={{ color: 'text.secondary' }}
                         >
-                          {location.direccion}
+                          {gimnasio.zona}
                         </Typography>
                       </Box>
 
-                      <Box sx={{ display: 'flex', alignItems: 'start', mt: 1 }}>
-                        <AccessTimeIcon
-                          sx={{ mr: 1, mt: 0.5, color: 'primary.main' }}
-                        />
+                      <Box
+                        sx={{ display: 'flex', alignItems: 'center', mt: 1 }}
+                      >
+                        <AccessTimeIcon sx={{ mr: 1, color: 'primary.main' }} />
                         <Typography
                           variant="body2"
-                          sx={{
-                            color: 'text.secondary',
-                            whiteSpace: 'pre-line',
-                          }}
+                          sx={{ color: 'text.secondary' }}
                         >
-                          {location.horarios}
+                          {gimnasio.tiempoUso}
                         </Typography>
                       </Box>
                     </Box>
@@ -127,4 +130,4 @@ const Locations = ({
   );
 };
 
-export default Locations;
+export default GimnasiosClientes;

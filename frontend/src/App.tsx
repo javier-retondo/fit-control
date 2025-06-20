@@ -1,5 +1,4 @@
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import Landing from './pages/Landing';
+import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
 import Layout from './layouts/Layout';
 import { GlobalProvider } from './context';
 import { ProtectedRoute } from './routes/ProtectedRoute';
@@ -7,6 +6,9 @@ import AdminDashboard from './pages/Admin/Dashboard';
 import UserDashboard from './pages/User/Dashboard';
 import UserLayout from './layouts/UserLayout';
 import AdminLayout from './layouts/AdminLayout';
+import LandingFitControl from './pages/Landing/FitControl';
+import LandingEmpresa from './pages/Landing/Empresa';
+import EmpresaLayout from './layouts/EmpresaLayout';
 
 const App = () => {
   return (
@@ -14,8 +16,13 @@ const App = () => {
       <GlobalProvider>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Landing />} />
-            <Route path="*" element={<Landing />} />
+            <Route index element={<LandingFitControl />} />
+            <Route path="*" element={<LandingFitControl />} />
+          </Route>
+          <Route path="/gym/:slug" element={<EmpresaLayout />}>
+            <Route index element={<LandingEmpresa />} />
+            <Route path="/gym/:slug" element={<LandingEmpresa />} />
+            <Route path="*" element={<Navigate to="/" />} />
           </Route>
           <Route path="/user" element={<UserLayout />}>
             <Route

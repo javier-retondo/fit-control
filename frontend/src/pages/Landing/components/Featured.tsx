@@ -1,30 +1,17 @@
 import { Box, Typography, Paper } from '@mui/material';
 import Slider from 'react-slick';
 
-const classes = [
-  {
-    nombre: 'Funcional',
-    descripcion:
-      'Entrenamiento de fuerza y resistencia en circuitos dinámicos.',
-    imagen: '/img/funcional.jpg',
-  },
-  {
-    nombre: 'Yoga',
-    descripcion:
-      'Conectá cuerpo y mente. Ideal para la flexibilidad y el equilibrio.',
-    imagen: '/img/yoga.jpg',
-  },
-  {
-    nombre: 'Spinning',
-    descripcion: 'Alta intensidad sobre bici fija. Ideal para quemar calorías.',
-    imagen: '/img/spinning.jpg',
-  },
-  {
-    nombre: 'Zumba',
-    descripcion: 'Cardio divertido con ritmos latinos. ¡Bailá y entrená!',
-    imagen: '/img/zumba.jpg',
-  },
-];
+type Clase = {
+  nombre: string;
+  descripcion: string;
+  imagen: string;
+};
+
+type FeaturedProps = {
+  clases: Clase[];
+  titulo?: string;
+  subtitulo?: string;
+};
 
 const sliderSettings = {
   dots: false,
@@ -44,24 +31,30 @@ const sliderSettings = {
   ],
 };
 
-const Feauted = () => {
+const Featured = ({
+  clases,
+  titulo = 'Clases Destacadas',
+  subtitulo = 'Una propuesta para cada tipo de entrenamiento.',
+}: FeaturedProps) => {
+  if (!clases || clases.length === 0) return null;
+
   return (
     <section id="clases">
       <Box sx={{ py: 10, px: 2, backgroundColor: 'background.paper' }}>
         <Typography variant="h4" align="center" gutterBottom>
-          Clases Destacadas
+          {titulo}
         </Typography>
         <Typography
           variant="subtitle1"
           align="center"
           sx={{ mb: 6, color: 'text.secondary' }}
         >
-          Una propuesta para cada tipo de entrenamiento.
+          {subtitulo}
         </Typography>
 
         <Box sx={{ maxWidth: '1000px', mx: 'auto' }}>
           <Slider {...sliderSettings}>
-            {classes.map((clase, i) => (
+            {clases.map((clase, i) => (
               <Box key={i} sx={{ px: 2 }}>
                 <Paper
                   elevation={4}
@@ -102,4 +95,4 @@ const Feauted = () => {
   );
 };
 
-export default Feauted;
+export default Featured;

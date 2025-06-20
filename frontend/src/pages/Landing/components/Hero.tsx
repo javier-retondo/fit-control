@@ -4,10 +4,34 @@ import { Parallax } from 'react-scroll-parallax';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { useEmpresaTheme } from '../../../hooks/useEmpresaTheme';
+import { useNavigate } from 'react-router-dom';
 
-const heroImages = ['/img/hero_1.png', '/img/hero_2.jpg', '/img/hero_3.jpg'];
+type HeroProps = {
+  titulo?: string;
+  subtitulo?: string;
+  imagenes?: string[];
+  imagenDecorativa?: string;
+  demo?: boolean;
+  cta?: {
+    label: string;
+    href: string;
+  };
+  mostrarStaffLink?: boolean;
+};
 
-const Hero = () => {
+const Hero = ({
+  titulo = 'Bienvenido a FitControl',
+  subtitulo = 'Controlá tu gimnasio con estilo. Automatizá reservas, pagos, rutinas y más.',
+  imagenes = ['/img/hero_1.png', '/img/hero_2.jpg', '/img/hero_3.jpg'],
+  imagenDecorativa = '/img/flexo-pesa.png',
+  cta = { label: 'Empezá ahora', href: '/registro' },
+  mostrarStaffLink = true,
+  demo = false,
+}: HeroProps) => {
+  const theme = useEmpresaTheme();
+  const navigate = useNavigate();
+
   const sliderSettings = {
     dots: false,
     infinite: true,
@@ -30,7 +54,7 @@ const Hero = () => {
       }}
     >
       <Slider {...sliderSettings}>
-        {heroImages.map((src, index) => (
+        {imagenes.map((src, index) => (
           <Box
             key={index}
             component="div"
@@ -45,6 +69,7 @@ const Hero = () => {
           />
         ))}
       </Slider>
+
       <Box
         sx={{
           position: 'absolute',
@@ -60,66 +85,92 @@ const Hero = () => {
         }}
       >
         <Box sx={{ maxWidth: 800 }}>
-          <Parallax speed={-15}>
-            <img
-              src="/img/flexo-pesa.png"
-              alt="FitControl Logo"
-              style={{ width: '250px', marginBottom: '16px', opacity: 0.8 }}
-            />
-          </Parallax>
+          {imagenDecorativa && (
+            <Parallax speed={-15}>
+              <img
+                src={imagenDecorativa}
+                alt="Imagen decorativa"
+                style={{
+                  width: '250px',
+                  marginBottom: '16px',
+                  opacity: 0.8,
+                }}
+              />
+            </Parallax>
+          )}
+
           <Parallax speed={-5}>
-            <Typography variant="h2" component="h1" gutterBottom>
-              Bienvenido a FitControl
+            <Typography
+              variant="h2"
+              component="h1"
+              gutterBottom
+              sx={{ color: theme.palette.primary.main, fontWeight: 'bold' }}
+            >
+              {titulo}
             </Typography>
             <Typography
               variant="h6"
               component="p"
               sx={{ mb: 4, color: 'text.secondary' }}
             >
-              Controlá tu gimnasio con estilo. Automatizá reservas, pagos,
-              rutinas y más.
+              {subtitulo}
             </Typography>
             <Button
               variant="contained"
               size="large"
+              href={cta?.href}
               sx={{
-                backgroundColor: 'primary.main',
-                color: 'background.default',
                 fontWeight: 'bold',
+                color: theme.palette.background.default,
+                backgroundColor: theme.palette.primary.main,
                 '&:hover': {
-                  backgroundColor: '#FFC300',
+                  backgroundColor: theme.palette.secondary.main,
+                  borderColor: theme.palette.secondary.main,
+                  textDecoration: 'none',
+                  color: theme.palette.primary.main,
                 },
               }}
             >
-              Empezá ahora
+              {cta?.label}
             </Button>
           </Parallax>
-          <Parallax speed={-5}>
-            <Box sx={{ mt: 4 }}>
-              <Typography
-                variant="body2"
-                sx={{
-                  mt: 2,
-                  color: 'text.secondary',
-                }}
-              >
-                ¿Sos parte del staff?{' '}
-                <Box
-                  component="a"
-                  href="/login/staff"
+          {(mostrarStaffLink || demo) && (
+            <Parallax speed={-5}>
+              <Box sx={{ mt: 6 }}>
+                <Typography
+                  variant="body2"
                   sx={{
-                    color: 'primary.main',
-                    textDecoration: 'underline',
-                    fontWeight: 'medium',
-                    cursor: 'pointer',
-                    '&:hover': { color: '#FFC300' },
+                    mt: 2,
+                    color: 'text.secondary',
                   }}
                 >
-                  Ingresá acá
-                </Box>
-              </Typography>
-            </Box>
-          </Parallax>
+                  {demo ? '¿Te gustó la demo?' : '¿Querés ver una demo?'}{' '}
+                  <Box
+                    component="a"
+                    onClick={() => {
+                      if (demo) {
+                        navigate('/');
+                      } else {
+                        navigate('/gym/cba-gymx');
+                      }
+                    }}
+                    sx={{
+                      color: 'primary.main',
+                      textDecoration: 'underline',
+                      fontWeight: 'medium',
+                      cursor: 'pointer',
+                      '&:hover': {
+                        color: 'background.paper',
+                        textDecoration: 'none',
+                      },
+                    }}
+                  >
+                    {demo ? 'Volver a FitControl' : 'Ver demo'}
+                  </Box>
+                </Typography>
+              </Box>
+            </Parallax>
+          )}
         </Box>
       </Box>
     </Box>
