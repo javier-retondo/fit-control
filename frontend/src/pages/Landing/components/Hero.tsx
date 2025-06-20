@@ -101,8 +101,8 @@ const Hero = ({
 
           <Parallax speed={-5}>
             <Typography
-              variant="h2"
-              component="h1"
+              variant="h3"
+              component="h3"
               gutterBottom
               sx={{ color: theme.palette.primary.main, fontWeight: 'bold' }}
             >
