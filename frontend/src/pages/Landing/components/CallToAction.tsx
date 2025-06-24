@@ -5,13 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import PrimaryButton from '../../../components/Buttons/PrimaryButton';
 
 const CallToAction = ({
-  titulo = 'Más de 1.200 socios ya entrenan mejor con FitControl',
-  subtitulo = 'Gestioná clases, pagos, rutinas y acceso con una sola herramienta.',
-  imagen = '/img/flexo-tip.png',
-  imagenHover = '/img/flexo-feliz.png',
-  fondo = '/img/sede_4.webp',
-  cta = { label: 'Empezar ahora', href: '/login/socio' },
-  mostrarBotonSecundario = true,
+  titulo,
+  subtitulo,
+  imagen,
+  imagenHover,
+  fondo,
+  cta,
+  beneficios_cta,
 }: {
   titulo?: string;
   subtitulo?: string;
@@ -22,8 +22,7 @@ const CallToAction = ({
     label: string;
     href: string;
   };
-  mostrarBotonSecundario?: boolean;
-  modo?: 'fitcontrol' | 'empresa';
+  beneficios_cta?: string[];
 }) => {
   const [hovered, setHovered] = useState(false);
   const [open, setOpen] = useState(false);
@@ -31,26 +30,12 @@ const CallToAction = ({
   const navigate = useNavigate();
   const handleCtaClick = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (cta.href) {
+    if (cta && cta.href) {
       navigate(cta.href);
     } else {
       console.warn('No se ha proporcionado un enlace para el CTA');
     }
   };
-
-  const beneficiosFitControl = [
-    'Configuración visual editable (logo, colores, textos)',
-    'Diseño moderno y adaptable a tu marca',
-    'Automatización de recordatorios y mensajes por WhatsApp/email',
-    'Agenda digital para instructores y socios',
-    'Sincronización con Google Calendar',
-    'Panel de administración intuitivo',
-    'Carga de clases y horarios recurrentes',
-    'Análisis y reportes de asistencia y reservas',
-    'Registro de ausencias y notificaciones automáticas',
-    'Comunicación interna con instructores y socios',
-    'Actualizaciones constantes sin costo adicional',
-  ];
 
   return (
     <section id="cta">
@@ -117,10 +102,10 @@ const CallToAction = ({
                 size="large"
                 isActive={true}
               >
-                {cta.label}
+                {cta && cta.label}
               </PrimaryButton>
 
-              {mostrarBotonSecundario && (
+              {beneficios_cta && (
                 <PrimaryButton
                   variant="outlined"
                   size="large"
@@ -155,37 +140,38 @@ const CallToAction = ({
               Beneficios de FitControl
             </Typography>
             <ul>
-              {beneficiosFitControl.map((item, i) => (
-                <li
-                  style={{ listStyleType: 'none', cursor: 'default' }}
-                  key={i}
-                >
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: 'text.secondary',
-                      marginBottom: 1,
-                      display: 'inline-block',
-                      textAlign: 'left',
-                      width: '100%',
-                      lineHeight: 1.5,
-                      fontSize: '0.9rem',
-                      fontWeight: 400,
-                      transition: 'color 0.3s ease',
-                      '&:hover': {
-                        color: 'primary.main',
-                      },
-                      '&:before': {
-                        content: '"• "',
-                        color: 'primary.main',
-                        marginRight: 0.5,
-                      },
-                    }}
+              {beneficios_cta &&
+                beneficios_cta.map((item, i) => (
+                  <li
+                    style={{ listStyleType: 'none', cursor: 'default' }}
+                    key={i}
                   >
-                    {item}
-                  </Typography>
-                </li>
-              ))}
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: 'text.secondary',
+                        marginBottom: 1,
+                        display: 'inline-block',
+                        textAlign: 'left',
+                        width: '100%',
+                        lineHeight: 1.5,
+                        fontSize: '0.9rem',
+                        fontWeight: 400,
+                        transition: 'color 0.3s ease',
+                        '&:hover': {
+                          color: 'primary.main',
+                        },
+                        '&:before': {
+                          content: '"• "',
+                          color: 'primary.main',
+                          marginRight: 0.5,
+                        },
+                      }}
+                    >
+                      {item}
+                    </Typography>
+                  </li>
+                ))}
             </ul>
             <PrimaryButton onClick={() => setOpen(false)} variant="contained">
               Cerrar

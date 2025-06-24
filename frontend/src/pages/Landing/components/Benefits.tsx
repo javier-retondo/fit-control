@@ -1,29 +1,9 @@
 import { Box, Typography, Grid } from '@mui/material';
 import { theme } from '../../../theme';
 import SliderParallaxCard from '../../../components/Cards/SliderParallaxCard';
+import type { BeneficioVisual } from '../../../types/Entities';
 
-const benefits = [
-  {
-    titulo: 'Reservas Automatizadas',
-    descripcion:
-      'Tus socios reservan clases desde la app, sin intervención del staff. Todo fluye de forma automática.',
-    img: '/img/flexo-check-bg.png',
-  },
-  {
-    titulo: 'Control de Ingresos',
-    descripcion:
-      'Gestioná el acceso de tus socios con un sistema de control de ingresos eficiente. Olvídate de las colas y los problemas.',
-    img: '/img/flexo-pc-bg.png',
-  },
-  {
-    titulo: 'Planes Personalizados',
-    descripcion:
-      'Instructores asignan rutinas a cada socio y se visualizan desde cualquier dispositivo. Todo en un solo lugar.',
-    img: '/img/flexo-ok-bg.png',
-  },
-];
-
-const Benefits = () => {
+const Benefits = ({ beneficios }: { beneficios: BeneficioVisual[] }) => {
   return (
     <section id="beneficios">
       <Box
@@ -51,7 +31,7 @@ const Benefits = () => {
         </Typography>
 
         <Grid container spacing={4} justifyContent="center">
-          {benefits.map((b, index) => (
+          {beneficios.map((b, index) => (
             <Grid size={{ xs: 12, sm: 6, md: 4 }} sx={{ mb: 2 }} key={index}>
               <SliderParallaxCard
                 theme={theme}

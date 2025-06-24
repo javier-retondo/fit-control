@@ -3,32 +3,66 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Navigate, Outlet, useParams } from 'react-router-dom';
 import { EmpresaProvider, useEmpresa } from '../context/EmpresaContext';
-import { empresasMock } from '../api/mocks/empresas';
 import { useEmpresaTheme } from '../hooks/useEmpresaTheme';
 import NavBar from '../components/Navbars/LandingNavbar';
 import Footer from '../components/Footers/LandingFooter';
 import { theme } from '../theme';
 import EmpresaLoading from '../components/Loadings/EmpresaLoading';
+import { getEmpresaLanding, getFitControlLanding } from '../api/landing';
 
 const LandingLoader = () => {
   const { slug } = useParams();
-  const { setEmpresa, setIsReady, empresa, isReady } = useEmpresa();
+  const {
+    setEmpresa,
+    setIsReady,
+    empresa,
+    isReady,
+    setFitControl,
+    fitControl,
+  } = useEmpresa();
 
-  useEffect(() => {
+  const getLandingData = async () => {
+    setIsReady(false);
+    setEmpresa(null);
+    setFitControl(null);
     if (!slug) {
-      setEmpresa(null);
-      setIsReady(false);
+      await getFitControlLanding()
+        .then((res) => {
+          if (res) {
+            setFitControl(res);
+          } else {
+            setFitControl(null);
+          }
+        })
+        .catch((error) => {
+          console.error('Error fetching FitControl landing data:', error);
+          setFitControl(null);
+        })
+        .finally(() => {
+          setIsReady(true);
+        });
+
       return;
     }
-    setIsReady(false);
-    const data = empresasMock[slug as keyof typeof empresasMock];
-    if (data) {
-      setEmpresa(data);
-      setIsReady(true);
-    } else {
-      setEmpresa(null);
-      setIsReady(true);
-    }
+    await getEmpresaLanding(slug)
+      .then((res) => {
+        if (res) {
+          setEmpresa(res);
+        } else {
+          setEmpresa(null);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching empresa landing data:', error);
+        setEmpresa(null);
+      })
+      .finally(() => {
+        setIsReady(true);
+      });
+  };
+
+  useEffect(() => {
+    getLandingData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
@@ -64,6 +98,15 @@ const LandingLoader = () => {
 
   const EmpresaTheme = useEmpresaTheme();
 
+  if (!isReady) {
+    return (
+      <ThemeProvider theme={EmpresaTheme}>
+        <CssBaseline />
+        <EmpresaLoading />
+      </ThemeProvider>
+    );
+  }
+
   if (!slug) {
     return (
       <ThemeProvider theme={theme}>
@@ -75,16 +118,7 @@ const LandingLoader = () => {
     );
   }
 
-  if (!isReady) {
-    return (
-      <ThemeProvider theme={EmpresaTheme}>
-        <CssBaseline />
-        <EmpresaLoading />
-      </ThemeProvider>
-    );
-  }
-
-  if (!empresa) {
+  if (!empresa && !fitControl) {
     return <Navigate to="/gym-not-found" replace />;
   }
 

@@ -67,7 +67,7 @@ export default function AuthPage() {
           color: 'white',
           px: 2,
           backgroundImage: `url(${
-            empresa?.landing?.hero?.imagenes?.[0] || '/img/hero_1.jpg'
+            empresa?.landing?.hero?.imagenes?.[0] || '/img/hero_1.webp'
           })`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',

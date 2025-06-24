@@ -15,7 +15,7 @@ const LandingEmpresa = () => {
         subtitulo={empresa?.landing.hero?.subtitulo}
         imagenes={empresa?.landing.hero?.imagenes}
         cta={empresa?.landing.hero?.cta}
-        mostrarStaffLink={false}
+        isFitcontrol={false}
         imagenDecorativa={empresa?.landing.hero?.imagenDecorativa}
         demo={empresa?.demo}
       />
@@ -33,7 +33,6 @@ const LandingEmpresa = () => {
         fondo={empresa?.landing.cta?.fondo}
         imagenHover={empresa?.landing.cta?.imagenHover}
         cta={empresa?.landing.cta?.cta}
-        mostrarBotonSecundario={false}
       />
     </>
   );

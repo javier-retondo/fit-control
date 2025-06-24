@@ -69,3 +69,9 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+.slick-slide > div {
+  height: 100%;
+}
+.hero-slider .slick-slide > div {
+  height: 100%;
+}

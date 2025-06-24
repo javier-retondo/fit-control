@@ -1,4 +1,6 @@
-export const empresasMock = {
+import type { EmpresaMap } from '../../types/Entities';
+
+export const empresasMock: EmpresaMap = {
   'demo-gymx': {
     id: 1,
     slug: 'demo-gymx',
@@ -30,22 +32,22 @@ export const empresasMock = {
         {
           nombre: 'Funcional',
           descripcion: 'Entrenamiento de alta intensidad',
-          imagen: '/img/funcional.jpg',
+          imagen: '/img/funcional.webp',
         },
         {
           nombre: 'Yoga',
           descripcion: 'Equilibrio cuerpo y mente',
-          imagen: '/img/yoga.jpg',
+          imagen: '/img/yoga.webp',
         },
         {
           nombre: 'CrossFit',
           descripcion: 'Entrenamiento funcional y variado',
-          imagen: '/img/crossfit.jpg',
+          imagen: '/img/crossfit.webp',
         },
         {
           nombre: 'Zumba',
           descripcion: 'Bailá y entrená al mismo tiempo',
-          imagen: '/img/zumba.jpg',
+          imagen: '/img/zumba.webp',
         },
       ],
       sedes: [
@@ -53,7 +55,7 @@ export const empresasMock = {
           nombre: 'Sede Central',
           direccion: 'Av. Principal 1234, CABA',
           horarios: 'Lunes a Viernes de 7:00 a 22:00\nSábados de 9:00 a 18:00',
-          imagen: '/img/sede_1.png',
+          imagen: '/img/sede_1.webp',
         },
         {
           nombre: 'Sede Norte',

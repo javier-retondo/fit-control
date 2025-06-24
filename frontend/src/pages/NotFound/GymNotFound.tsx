@@ -9,7 +9,7 @@ const GymNotFound = () => {
           textAlign: 'center',
           height: '100vh',
           width: '100vw',
-          backgroundImage: `url(/img/hero_2.jpg)`,
+          backgroundImage: `url(/img/hero_2.webp)`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           filter: 'brightness(0.4)',

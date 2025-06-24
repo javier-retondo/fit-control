@@ -14,7 +14,7 @@ const SocioContact = () => {
             speed: -20 + index * 5,
           })) || [
             { image: '/img/hero_1.png', speed: -20 },
-            { image: '/img/overlay_dark.jpg', speed: -10 },
+            { image: '/img/overlay_dark.webp', speed: -10 },
           ]
         }
         style={{ height: '40vh' }}

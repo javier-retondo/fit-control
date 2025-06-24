@@ -3,27 +3,7 @@ import Slider from 'react-slick';
 import { theme } from '../../../theme';
 import SliderParallaxCard from '../../../components/Cards/SliderParallaxCard';
 import GymCard from '../../../components/Cards/GymCard';
-
-const gimnasios = [
-  {
-    nombre: 'Energym',
-    zona: 'Palermo, CABA',
-    tiempoUso: 'Usan FitControl desde 2023',
-    imagen: '/img/sede_1.png',
-  },
-  {
-    nombre: 'PowerHouse',
-    zona: 'Ramos Mejía, GBA Oeste',
-    tiempoUso: 'Más de 18 meses usando FitControl',
-    imagen: '/img/sede_2.webp',
-  },
-  {
-    nombre: 'FitZone',
-    zona: 'Córdoba Capital',
-    tiempoUso: 'Confían en FitControl desde 2022',
-    imagen: '/img/sede_3.webp',
-  },
-];
+import type { ClienteTestimonio } from '../../../types/Entities';
 
 const sliderSettings = {
   dots: true,
@@ -43,7 +23,11 @@ const sliderSettings = {
   ],
 };
 
-const GimnasiosClientes = () => {
+const GimnasiosClientes = ({
+  gimnasios,
+}: {
+  gimnasios: ClienteTestimonio[];
+}) => {
   return (
     <section id="gimnasios">
       <Box
