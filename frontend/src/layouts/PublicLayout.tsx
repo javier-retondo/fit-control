@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { empresasMock } from '../api/mocks/empresas';
 import PublicNavbar from '../components/Navbars/PublicNavbar';
 import { theme } from '../theme';
+import PublicFooter from '../components/Footers/PublicFooter';
 
 const PublicLoader = () => {
   const { slug } = useParams();
@@ -61,6 +62,7 @@ const PublicLoader = () => {
         <Box>
           <PublicNavbar />
           <Outlet />
+          <PublicFooter />
         </Box>
       </ThemeProvider>
     );
@@ -70,6 +72,7 @@ const PublicLoader = () => {
       <Box>
         <PublicNavbar />
         <Outlet />
+        <PublicFooter />
       </Box>
     </ThemeProvider>
   );

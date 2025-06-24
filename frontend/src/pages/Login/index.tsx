@@ -51,7 +51,7 @@ export default function AuthPage() {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', backgroundColor: 'background.default' }}>
+    <Box sx={{ minHeight: '93vh', backgroundColor: 'background.default' }}>
       <Box
         sx={{
           position: 'absolute',
@@ -67,7 +67,7 @@ export default function AuthPage() {
           color: 'white',
           px: 2,
           backgroundImage: `url(${
-            empresa?.landing?.hero?.imagenes?.[0] || '/img/hero_1.png'
+            empresa?.landing?.hero?.imagenes?.[0] || '/img/hero_1.jpg'
           })`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',

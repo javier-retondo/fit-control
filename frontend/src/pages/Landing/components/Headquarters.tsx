@@ -3,19 +3,7 @@ import Slider from 'react-slick';
 import { useEmpresaTheme } from '../../../hooks/useEmpresaTheme';
 import SliderParallaxCard from '../../../components/Cards/SliderParallaxCard';
 import HeadquarterCard from '../../../components/Cards/HeadquarterCard';
-
-type Sede = {
-  nombre: string;
-  direccion: string;
-  horarios: string;
-  imagen: string;
-};
-
-type LocationsProps = {
-  headquarters: Sede[];
-  titulo?: string;
-  subtitulo?: string;
-};
+import type { Headquarter } from '../../../types/Entities';
 
 const sliderSettings = {
   dots: false,
@@ -39,7 +27,11 @@ const Headquarters = ({
   headquarters,
   titulo = 'Nuestras Sedes',
   subtitulo = 'Elegí la sede más cercana y conocé sus horarios de atención.',
-}: LocationsProps) => {
+}: {
+  headquarters: Headquarter[];
+  titulo?: string;
+  subtitulo?: string;
+}) => {
   const theme = useEmpresaTheme();
   return (
     <section id="sedes">

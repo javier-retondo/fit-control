@@ -3,24 +3,23 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import EmailIcon from '@mui/icons-material/Email';
 import { useEmpresa } from '../../context/EmpresaContext';
+import { useNavigate } from 'react-router-dom';
 
 const PublicFooter = () => {
   const { empresa } = useEmpresa();
-
+  const navigate = useNavigate();
   const isFitControl = !empresa?.slug || empresa.slug === 'fitcontrol';
 
   const secciones = isFitControl
     ? [
-        { href: '#hero', label: 'Inicio' },
-        { href: '#beneficios', label: 'Beneficios' },
-        { href: '#gimnasios', label: 'Gimnasios' },
-        { href: '#precios', label: 'Planes' },
+        { href: '/', label: 'Inicio' },
+        { href: '/login', label: 'Ingresar' },
+        { href: '/register', label: 'Registrarse' },
       ]
     : [
-        { href: '#hero', label: 'Inicio' },
-        { href: '#clases', label: 'Clases' },
-        { href: '#sedes', label: 'Sedes' },
-        { href: '#cta', label: 'Contacto' },
+        { href: `/gym/${empresa.slug}`, label: 'Inicio' },
+        { href: `/gym/${empresa.slug}/login`, label: 'Ingresar' },
+        { href: `/gym/${empresa.slug}/register`, label: 'Registrarse' },
       ];
 
   const redesFitControl = [
@@ -62,15 +61,15 @@ const PublicFooter = () => {
           {empresa?.nombre || 'FitControl'}
         </Typography>
         <Stack direction="row" spacing={3}>
-          {secciones.map((s) => (
+          {secciones.map((s, i) => (
             <Link
-              key={s.href}
-              href={s.href}
+              key={i}
+              onClick={() => navigate(s.href)}
               underline="hover"
               color="inherit"
               sx={{
                 fontWeight: 'bold',
-                '&:hover': { color: 'primary.main' },
+                '&:hover': { color: 'primary.main', cursor: 'pointer' },
               }}
             >
               {s.label}

@@ -4,7 +4,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PrimaryButton from '../../../components/Buttons/PrimaryButton';
 
-type CTAProps = {
+const CallToAction = ({
+  titulo = 'Más de 1.200 socios ya entrenan mejor con FitControl',
+  subtitulo = 'Gestioná clases, pagos, rutinas y acceso con una sola herramienta.',
+  imagen = '/img/flexo-tip.png',
+  imagenHover = '/img/flexo-feliz.png',
+  fondo = '/img/sede_4.webp',
+  cta = { label: 'Empezar ahora', href: '/login/socio' },
+  mostrarBotonSecundario = true,
+}: {
   titulo?: string;
   subtitulo?: string;
   imagen?: string;
@@ -16,17 +24,7 @@ type CTAProps = {
   };
   mostrarBotonSecundario?: boolean;
   modo?: 'fitcontrol' | 'empresa';
-};
-
-const CallToAction = ({
-  titulo = 'Más de 1.200 socios ya entrenan mejor con FitControl',
-  subtitulo = 'Gestioná clases, pagos, rutinas y acceso con una sola herramienta.',
-  imagen = '/img/flexo-tip.png',
-  imagenHover = '/img/flexo-feliz.png',
-  fondo = '/img/sede_4.webp',
-  cta = { label: 'Empezar ahora', href: '/login/socio' },
-  mostrarBotonSecundario = true,
-}: CTAProps) => {
+}) => {
   const [hovered, setHovered] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -158,17 +156,15 @@ const CallToAction = ({
             </Typography>
             <ul>
               {beneficiosFitControl.map((item, i) => (
-                <li key={i}>
+                <li
+                  style={{ listStyleType: 'none', cursor: 'default' }}
+                  key={i}
+                >
                   <Typography
                     variant="body2"
                     sx={{
                       color: 'text.secondary',
                       marginBottom: 1,
-                      '&:before': {
-                        content: '"• "',
-                        color: 'primary.main',
-                        marginRight: 0.5,
-                      },
                       display: 'inline-block',
                       textAlign: 'left',
                       width: '100%',
@@ -178,6 +174,11 @@ const CallToAction = ({
                       transition: 'color 0.3s ease',
                       '&:hover': {
                         color: 'primary.main',
+                      },
+                      '&:before': {
+                        content: '"• "',
+                        color: 'primary.main',
+                        marginRight: 0.5,
                       },
                     }}
                   >

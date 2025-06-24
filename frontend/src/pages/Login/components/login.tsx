@@ -108,7 +108,7 @@ const LoginComp = ({ form, handleChange, setLoginCase }: LoginProps) => {
             onClick={() =>
               empresa
                 ? navigate(`/gym/${empresa.slug}/register`)
-                : navigate('register')
+                : navigate('/register')
             }
             sx={{
               textTransform: 'none',

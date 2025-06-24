@@ -9,7 +9,7 @@ import PrimaryButton from '../../../components/Buttons/PrimaryButton';
 const Hero = ({
   titulo = 'Bienvenido a FitControl',
   subtitulo = 'Controlá tu gimnasio con estilo. Automatizá reservas, pagos, rutinas y más.',
-  imagenes = ['/img/hero_1.png', '/img/hero_2.jpg', '/img/hero_3.jpg'],
+  imagenes = ['/img/hero_1.jpg', '/img/hero_2.jpg', '/img/hero_3.jpg'],
   imagenDecorativa = '/img/flexo-pesa.png',
   cta = { label: 'Empezá ahora', href: '/register' },
   mostrarStaffLink = true,
