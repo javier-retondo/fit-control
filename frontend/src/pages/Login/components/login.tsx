@@ -7,12 +7,12 @@ import {
   Typography,
 } from '@mui/material';
 import type { loginCases } from '..';
-import { useContext, useEffect, useState } from 'react';
-import LoginContext from '../../../context/LoginContext';
+import { useEffect, useState } from 'react';
+import { useLogin } from '../../../context/LoginContext';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import GeneralContext from '../../../context/GeneralContext';
-//import { useNavigate } from 'react-router-dom';
-import { theme } from '../../../theme';
+import { useGeneral } from '../../../context/GeneralContext';
+import { useNavigate } from 'react-router-dom';
+import { useEmpresa } from '../../../context/EmpresaContext';
 
 type LoginProps = {
   form: {
@@ -26,9 +26,10 @@ type LoginProps = {
 const LoginComp = ({ form, handleChange, setLoginCase }: LoginProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  //const navigate = useNavigate();
-  const { logout } = useContext(LoginContext);
-  const { setLoading } = useContext(GeneralContext);
+  const navigate = useNavigate();
+  const { logout } = useLogin();
+  const { setLoading } = useGeneral();
+  const { empresa } = useEmpresa();
 
   const handleClickShowPassword = () => {
     setShowPassword((prev) => !prev);
@@ -104,10 +105,17 @@ const LoginComp = ({ form, handleChange, setLoginCase }: LoginProps) => {
           ¿No tenés cuenta?{' '}
           <Button
             variant="text"
-            onClick={() => setLoginCase('register')}
+            onClick={() =>
+              empresa
+                ? navigate(`/gym/${empresa.slug}/register`)
+                : navigate('register')
+            }
             sx={{
               textTransform: 'none',
-              color: theme.palette.primary.main,
+              color: 'primary.main',
+              '&:hover': {
+                textDecoration: 'underline',
+              },
             }}
           >
             Registrate
@@ -121,7 +129,10 @@ const LoginComp = ({ form, handleChange, setLoginCase }: LoginProps) => {
             onClick={() => setLoginCase('forgotPassword')}
             sx={{
               textTransform: 'none',
-              color: theme.palette.primary.main,
+              color: 'primary.main',
+              '&:hover': {
+                textDecoration: 'underline',
+              },
             }}
           >
             Olvidé mi Contraseña

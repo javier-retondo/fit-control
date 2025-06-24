@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import type { LoginContextProps } from '../types/Props';
 import type { User } from '../types/Entities';
 
@@ -47,4 +47,5 @@ export const LoginProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default LoginContext;
+// eslint-disable-next-line react-refresh/only-export-components
+export const useLogin = () => useContext(LoginContext);

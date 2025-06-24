@@ -1,8 +1,8 @@
 export const empresasMock = {
-  'cba-gymx': {
+  'demo-gymx': {
     id: 1,
-    slug: 'cba-gymx',
-    nombre: 'GymX Córdoba',
+    slug: 'demo-gymx',
+    nombre: 'GymX Demo',
     logo: '/img/logoX.png',
     demo: true,
     colores: {
@@ -10,20 +10,20 @@ export const empresasMock = {
       secondary: '#FFC107',
     },
     redes: {
-      instagram: 'https://instagram.com/gymxcordoba',
-      facebook: 'https://facebook.com/gymxcordoba',
+      instagram: 'https://instagram.com/gymxdemo',
+      facebook: 'https://facebook.com/gymxdemo',
       whatsapp: 'https://wa.me/5493512345678',
     },
     landing: {
       hero: {
-        titulo: 'Bienvenido a GymX Córdoba',
+        titulo: 'Bienvenido a GymX Demo',
         subtitulo:
           'Entrená con los mejores instructores y reservá tus clases online',
         imagenes: ['/img/sede_5.webp', '/img/sede_4.webp', '/img/sede_2.webp'],
         imagenDecorativa: '/img/boy-pesa.png',
         cta: {
           label: 'Acceso Socios',
-          href: '/login/socio',
+          href: 'login',
         },
       },
       clases: [
@@ -76,8 +76,8 @@ export const empresasMock = {
         imagenHover: '/img/boy-feliz.png',
         fondo: '/img/sede_4.webp',
         cta: {
-          label: 'Ingresar ahora',
-          href: '/login/socio',
+          label: 'Registrate ahora',
+          href: '/gym/demo-gymx/register',
         },
       },
       planes: [

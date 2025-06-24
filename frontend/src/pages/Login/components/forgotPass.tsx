@@ -1,9 +1,8 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, TextField, Typography } from '@mui/material';
 import type { loginCases } from '..';
 //import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
-import GeneralContext from '../../../context/GeneralContext';
-import { theme } from '../../../theme';
+import { useGeneral } from '../../../context/GeneralContext';
+import PrimaryButton from '../../../components/Buttons/PrimaryButton';
 
 type ForgotPasswordProps = {
   form: {
@@ -19,7 +18,7 @@ const ForgotPasswordComp = ({
   setLoginCase,
 }: ForgotPasswordProps) => {
   //const navigate = useNavigate();
-  const { setLoading } = useContext(GeneralContext);
+  const { setLoading } = useGeneral();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,29 +41,21 @@ const ForgotPasswordComp = ({
           onChange={handleChange}
           required
         />
-        <Button
+        <PrimaryButton
           fullWidth
           type="submit"
-          variant="contained"
-          color="primary"
+          isActive={true}
           sx={{ mt: 2, py: 1 }}
         >
           Enviar Nueva Contraseña
-        </Button>
+        </PrimaryButton>
       </form>
 
       <Box mt={3} textAlign="center">
         <Typography variant="body2">
-          <Button
-            variant="text"
-            onClick={() => setLoginCase('login')}
-            sx={{
-              textTransform: 'none',
-              color: theme.palette.primary.main,
-            }}
-          >
+          <PrimaryButton variant="text" onClick={() => setLoginCase('login')}>
             Iniciar Sesión
-          </Button>
+          </PrimaryButton>
         </Typography>
       </Box>
     </>

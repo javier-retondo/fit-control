@@ -11,6 +11,9 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { theme } from '../../../theme';
+import { useNavigate } from 'react-router-dom';
+import { useGeneral } from '../../../context/GeneralContext';
+import type { Plan } from '../../../types/Entities';
 
 const steps = ['Sedes', 'Socios', 'Clases', 'Resumen'];
 
@@ -21,6 +24,16 @@ const WizardPlanPersonalizado = () => {
     socios: 50,
     clases: 10,
   });
+
+  const navigate = useNavigate();
+  const { setPlanSeleccionado } = useGeneral();
+
+  const handleIWantTo = (plan: Plan) => {
+    setPlanSeleccionado(plan);
+    navigate('/register', {
+      state: { planSeleccionado: plan },
+    });
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -106,7 +119,19 @@ const WizardPlanPersonalizado = () => {
             </Typography>
             <Button
               variant="contained"
-              href="#contacto"
+              onClick={() =>
+                handleIWantTo({
+                  nombre: 'Plan Personalizado',
+                  beneficios: [
+                    'Asesoramiento personalizado',
+                    'Soporte técnico 24/7',
+                    'Actualizaciones constantes',
+                  ],
+                  precio: calcularPrecio(),
+                  descripcion: 'Plan adaptado a tus necesidades específicas.',
+                  destacado: true,
+                })
+              }
               sx={{
                 fontWeight: 'bold',
                 color: theme.palette.background.default,

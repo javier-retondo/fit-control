@@ -2,27 +2,27 @@ import {
   AppBar,
   Toolbar,
   Box,
-  Button,
   IconButton,
   Drawer,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
-  useTheme,
   useMediaQuery,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
-import { useEmpresa } from '../context/EmpresaContext';
+import { useEmpresa } from '../../context/EmpresaContext';
+import { useNavigate } from 'react-router-dom';
+import PrimaryButton from '../Buttons/PrimaryButton';
 
-const NavBar = () => {
+const LandingNavbar = () => {
   const [open, setOpen] = useState(false);
   const { empresa } = useEmpresa();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
   const isFitControl = !empresa?.slug || empresa.slug === 'fitcontrol';
+  const navigate = useNavigate();
 
   const sections = isFitControl
     ? [
@@ -54,9 +54,9 @@ const NavBar = () => {
       position="sticky"
       elevation={0}
       sx={{
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: 'background.default',
         backdropFilter: 'blur(8px)',
-        borderBottom: `1px solid ${theme.palette.divider}`,
+        borderBottom: `1px solid rgba(0, 0, 0, 0.1)`,
         zIndex: 1100,
       }}
     >
@@ -64,7 +64,7 @@ const NavBar = () => {
         <Box
           sx={{
             fontWeight: 'bold',
-            color: theme.palette.primary.main,
+            color: 'primary.main',
             fontSize: 20,
           }}
         >
@@ -82,7 +82,7 @@ const NavBar = () => {
           <label
             style={{
               fontWeight: 'bold',
-              color: theme.palette.primary.main,
+              color: 'primary.main',
               verticalAlign: 'middle',
             }}
           >
@@ -93,7 +93,7 @@ const NavBar = () => {
           <>
             <IconButton
               onClick={() => setOpen(true)}
-              sx={{ color: theme.palette.primary.main }}
+              sx={{ color: 'primary.main' }}
             >
               <MenuIcon />
             </IconButton>
@@ -115,10 +115,10 @@ const NavBar = () => {
                   <ListItem disablePadding>
                     <ListItemButton
                       component="a"
-                      href="/login/socio"
+                      href="login"
                       onClick={() => setOpen(false)}
                     >
-                      <ListItemText primary="Acceder como Socio" />
+                      <ListItemText primary="Ingresar" />
                     </ListItemButton>
                   </ListItem>
                 </List>
@@ -128,38 +128,17 @@ const NavBar = () => {
         ) : (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             {sections.map((section) => (
-              <Button
+              <PrimaryButton
                 key={section.id}
                 onClick={() => scrollToSection(section.id)}
-                sx={{
-                  color: theme.palette.primary.main,
-                  fontWeight: 'bold',
-                  '&:hover': {
-                    color: theme.palette.secondary.main || '#FFC300',
-                    textDecoration: 'none',
-                    backgroundColor: theme.palette.primary.main,
-                  },
-                }}
+                isActive={false}
               >
                 {section.label}
-              </Button>
+              </PrimaryButton>
             ))}
-            <Button
-              href="/login/socio"
-              variant="contained"
-              sx={{
-                ml: 2,
-                fontWeight: 'bold',
-                backgroundColor: theme.palette.primary.main,
-                color: theme.palette.background.default,
-                '&:hover': {
-                  backgroundColor: theme.palette.secondary.main || '#FFC300',
-                  color: theme.palette.text.primary,
-                },
-              }}
-            >
+            <PrimaryButton onClick={() => navigate('login')} isActive={true}>
               Acceder
-            </Button>
+            </PrimaryButton>
           </Box>
         )}
       </Toolbar>
@@ -167,4 +146,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default LandingNavbar;

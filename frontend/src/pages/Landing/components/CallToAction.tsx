@@ -1,6 +1,8 @@
-import { Box, Typography, Button, Stack, Modal } from '@mui/material';
+import { Box, Typography, Stack, Modal } from '@mui/material';
 import { Parallax } from 'react-scroll-parallax';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import PrimaryButton from '../../../components/Buttons/PrimaryButton';
 
 type CTAProps = {
   titulo?: string;
@@ -27,6 +29,16 @@ const CallToAction = ({
 }: CTAProps) => {
   const [hovered, setHovered] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const navigate = useNavigate();
+  const handleCtaClick = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    if (cta.href) {
+      navigate(cta.href);
+    } else {
+      console.warn('No se ha proporcionado un enlace para el CTA');
+    }
+  };
 
   const beneficiosFitControl = [
     'Configuración visual editable (logo, colores, textos)',
@@ -101,38 +113,23 @@ const CallToAction = ({
               onMouseEnter={() => setHovered(true)}
               onMouseLeave={() => setHovered(false)}
             >
-              <Button
-                href={cta.href}
+              <PrimaryButton
+                onClick={handleCtaClick}
                 variant="contained"
                 size="large"
-                sx={{
-                  backgroundColor: 'primary.main',
-                  color: 'background.default',
-                  fontWeight: 'bold',
-                  '&:hover': { backgroundColor: '#FFC300', color: 'black' },
-                }}
+                isActive={true}
               >
                 {cta.label}
-              </Button>
+              </PrimaryButton>
 
               {mostrarBotonSecundario && (
-                <Button
+                <PrimaryButton
                   variant="outlined"
                   size="large"
                   onClick={() => setOpen(true)}
-                  sx={{
-                    borderColor: 'primary.main',
-                    color: 'primary.main',
-                    fontWeight: 'bold',
-                    '&:hover': {
-                      borderColor: '#FFC300',
-                      color: '#FFC300',
-                      backgroundColor: 'rgba(255, 215, 0, 0.05)',
-                    },
-                  }}
                 >
                   Ver más beneficios
-                </Button>
+                </PrimaryButton>
               )}
             </Stack>
           </Parallax>
@@ -189,13 +186,9 @@ const CallToAction = ({
                 </li>
               ))}
             </ul>
-            <Button
-              onClick={() => setOpen(false)}
-              variant="contained"
-              sx={{ mt: 2 }}
-            >
+            <PrimaryButton onClick={() => setOpen(false)} variant="contained">
               Cerrar
-            </Button>
+            </PrimaryButton>
           </Box>
         </Modal>
       </Box>

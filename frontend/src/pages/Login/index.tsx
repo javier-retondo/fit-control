@@ -1,27 +1,15 @@
 import { ArrowBack } from '@mui/icons-material';
-import {
-  Box,
-  Button,
-  Container,
-  Paper,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import { Box, Button, Container, Paper, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginComp from './components/login';
-import RegisterComp from './components/register';
 import ForgotPasswordComp from './components/forgotPass';
 import ChangePassword from './components/changePassword';
+import { useEmpresa } from '../../context/EmpresaContext';
 
-export type loginCases =
-  | 'login'
-  | 'register'
-  | 'forgotPassword'
-  | 'changePassword';
+export type loginCases = 'login' | 'forgotPassword' | 'changePassword';
 
 export default function AuthPage() {
-  const theme = useTheme();
   const [loginCase, setLoginCase] = useState<loginCases>('login');
 
   const [form, setForm] = useState({
@@ -30,6 +18,7 @@ export default function AuthPage() {
     password: '',
   });
 
+  const { empresa } = useEmpresa();
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,14 +30,6 @@ export default function AuthPage() {
       case 'login':
         return (
           <LoginComp
-            form={form}
-            handleChange={handleChange}
-            setLoginCase={setLoginCase}
-          />
-        );
-      case 'register':
-        return (
-          <RegisterComp
             form={form}
             handleChange={handleChange}
             setLoginCase={setLoginCase}
@@ -70,42 +51,61 @@ export default function AuthPage() {
   };
 
   return (
-    <Box
-      minHeight="100vh"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      sx={{
-        backgroundColor: '#f9f9f9',
-      }}
-    >
-      <Container maxWidth="sm">
-        <Paper
-          elevation={3}
-          sx={{
-            p: 4,
-            borderRadius: 4,
-            backgroundColor: '#fff',
-          }}
-        >
-          {renderForm()}
-          <Box mt={3} textAlign="center">
-            <Typography variant="body2">
-              <Button
-                variant="text"
-                onClick={() => navigate(-1)}
-                sx={{
-                  textTransform: 'none',
-                  color: theme.palette.primary.main,
-                }}
-              >
-                <ArrowBack sx={{ mr: 1 }} />
-                Volver
-              </Button>
-            </Typography>
-          </Box>
-        </Paper>
-      </Container>
+    <Box sx={{ minHeight: '100vh', backgroundColor: 'background.default' }}>
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          minHeight: '100vh',
+          alignItems: 'center',
+          justifyContent: 'center',
+          display: 'flex',
+          textAlign: 'center',
+          color: 'white',
+          px: 2,
+          backgroundImage: `url(${
+            empresa?.landing?.hero?.imagenes?.[0] || '/img/hero_1.png'
+          })`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backdropFilter: 'blur(5px)',
+        }}
+      >
+        <Container maxWidth="sm">
+          <Paper
+            elevation={3}
+            sx={{
+              p: 4,
+              borderRadius: 4,
+              backgroundColor: 'theme.palette.background.paper',
+            }}
+          >
+            {renderForm()}
+            <Box mt={3} textAlign="center">
+              <Typography variant="body2">
+                <Button
+                  variant="text"
+                  onClick={() => navigate(-1)}
+                  sx={{
+                    textTransform: 'none',
+                    color: 'primary.main',
+                    '&:hover': {
+                      textDecoration: 'underline',
+                    },
+                  }}
+                >
+                  <ArrowBack sx={{ mr: 1 }} />
+                  Volver
+                </Button>
+              </Typography>
+            </Box>
+          </Paper>
+        </Container>
+      </Box>
     </Box>
   );
 }

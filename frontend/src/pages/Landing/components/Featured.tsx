@@ -1,17 +1,8 @@
-import { Box, Typography, Paper } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Slider from 'react-slick';
-
-type Clase = {
-  nombre: string;
-  descripcion: string;
-  imagen: string;
-};
-
-type FeaturedProps = {
-  clases: Clase[];
-  titulo?: string;
-  subtitulo?: string;
-};
+import WorkoutClassCard from '../../../components/Cards/WorkoutClassCard';
+import type { WorkoutClass } from '../../../types/Entities';
+import { useEmpresaTheme } from '../../../hooks/useEmpresaTheme';
 
 const sliderSettings = {
   dots: false,
@@ -35,9 +26,13 @@ const Featured = ({
   clases,
   titulo = 'Clases Destacadas',
   subtitulo = 'Una propuesta para cada tipo de entrenamiento.',
-}: FeaturedProps) => {
+}: {
+  clases: WorkoutClass[];
+  titulo?: string;
+  subtitulo?: string;
+}) => {
+  const empresaTheme = useEmpresaTheme();
   if (!clases || clases.length === 0) return null;
-
   return (
     <section id="clases">
       <Box sx={{ py: 10, px: 2, backgroundColor: 'background.paper' }}>
@@ -55,38 +50,11 @@ const Featured = ({
         <Box sx={{ maxWidth: '1000px', mx: 'auto' }}>
           <Slider {...sliderSettings}>
             {clases.map((clase, i) => (
-              <Box key={i} sx={{ px: 2 }}>
-                <Paper
-                  elevation={4}
-                  sx={{
-                    borderRadius: 3,
-                    overflow: 'hidden',
-                    backgroundColor: 'background.default',
-                    color: 'text.primary',
-                    height: '100%',
-                  }}
-                >
-                  <Box
-                    component="img"
-                    src={clase.imagen}
-                    alt={clase.nombre}
-                    sx={{
-                      width: '100%',
-                      height: 220,
-                      objectFit: 'cover',
-                    }}
-                  />
-                  <Box sx={{ p: 3 }}>
-                    <Typography variant="h6">{clase.nombre}</Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{ color: 'text.secondary' }}
-                    >
-                      {clase.descripcion}
-                    </Typography>
-                  </Box>
-                </Paper>
-              </Box>
+              <WorkoutClassCard
+                key={i}
+                theme={empresaTheme}
+                workoutClass={clase}
+              />
             ))}
           </Slider>
         </Box>

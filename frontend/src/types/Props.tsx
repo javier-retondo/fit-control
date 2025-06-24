@@ -1,4 +1,4 @@
-import type { User } from './Entities';
+import type { Plan, User } from './Entities';
 
 export interface LoginContextProps {
   isLoggedIn: boolean;
@@ -13,4 +13,6 @@ export interface GeneralContextProps {
   setNavbarText: (text: string) => void;
   alert: (message: string, type: 'error' | 'success') => void;
   setLoading: (loading: boolean) => void;
+  planSeleccionado: Plan | null;
+  setPlanSeleccionado: (plan: Plan | null) => void;
 }

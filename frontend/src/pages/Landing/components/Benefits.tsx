@@ -1,5 +1,6 @@
-import { Box, Typography, Grid, Paper, useTheme } from '@mui/material';
-import { Parallax } from 'react-scroll-parallax';
+import { Box, Typography, Grid } from '@mui/material';
+import { theme } from '../../../theme';
+import SliderParallaxCard from '../../../components/Cards/SliderParallaxCard';
 
 const benefits = [
   {
@@ -23,8 +24,6 @@ const benefits = [
 ];
 
 const Benefits = () => {
-  const theme = useTheme();
-
   return (
     <section id="beneficios">
       <Box
@@ -38,7 +37,7 @@ const Benefits = () => {
           variant="h4"
           align="center"
           gutterBottom
-          sx={{ color: theme.palette.primary.main }}
+          sx={{ color: 'primary.main' }}
         >
           Beneficios de usar FitControl
         </Typography>
@@ -54,38 +53,30 @@ const Benefits = () => {
         <Grid container spacing={4} justifyContent="center">
           {benefits.map((b, index) => (
             <Grid size={{ xs: 12, sm: 6, md: 4 }} sx={{ mb: 2 }} key={index}>
-              <Parallax speed={-30} translateY={[-20, 20]}>
-                <Paper
-                  elevation={6}
-                  sx={{
-                    backgroundColor: theme.palette.background.default,
-                    borderRadius: 4,
-                    p: 4,
-                    textAlign: 'center',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      transform: 'translateY(-6px)',
-                      boxShadow: `0 8px 30px ${theme.palette.primary.main}`,
-                    },
-                  }}
-                >
-                  <Box sx={{ mb: 2 }}>
-                    <img
-                      src={b.img}
-                      alt={b.titulo}
-                      width={100}
-                      height={100}
-                      style={{ borderRadius: '50%' }}
-                    />
-                  </Box>
-                  <Typography variant="h6" gutterBottom>
-                    {b.titulo}
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                    {b.descripcion}
-                  </Typography>
-                </Paper>
-              </Parallax>
+              <SliderParallaxCard
+                theme={theme}
+                sx={{
+                  backgroundColor: 'background.default',
+                  p: 4,
+                  textAlign: 'center',
+                }}
+              >
+                <Box sx={{ mb: 2 }}>
+                  <img
+                    src={b.img}
+                    alt={b.titulo}
+                    width={100}
+                    height={100}
+                    style={{ borderRadius: '50%' }}
+                  />
+                </Box>
+                <Typography variant="h6" gutterBottom>
+                  {b.titulo}
+                </Typography>
+                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                  {b.descripcion}
+                </Typography>
+              </SliderParallaxCard>
             </Grid>
           ))}
         </Grid>

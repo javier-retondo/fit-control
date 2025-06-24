@@ -1,13 +1,20 @@
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Slider from 'react-slick';
 import { Parallax } from 'react-scroll-parallax';
-
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { useEmpresaTheme } from '../../../hooks/useEmpresaTheme';
 import { useNavigate } from 'react-router-dom';
+import PrimaryButton from '../../../components/Buttons/PrimaryButton';
 
-type HeroProps = {
+const Hero = ({
+  titulo = 'Bienvenido a FitControl',
+  subtitulo = 'Controlá tu gimnasio con estilo. Automatizá reservas, pagos, rutinas y más.',
+  imagenes = ['/img/hero_1.png', '/img/hero_2.jpg', '/img/hero_3.jpg'],
+  imagenDecorativa = '/img/flexo-pesa.png',
+  cta = { label: 'Empezá ahora', href: '/register' },
+  mostrarStaffLink = true,
+  demo = false,
+}: {
   titulo?: string;
   subtitulo?: string;
   imagenes?: string[];
@@ -18,18 +25,7 @@ type HeroProps = {
     href: string;
   };
   mostrarStaffLink?: boolean;
-};
-
-const Hero = ({
-  titulo = 'Bienvenido a FitControl',
-  subtitulo = 'Controlá tu gimnasio con estilo. Automatizá reservas, pagos, rutinas y más.',
-  imagenes = ['/img/hero_1.png', '/img/hero_2.jpg', '/img/hero_3.jpg'],
-  imagenDecorativa = '/img/flexo-pesa.png',
-  cta = { label: 'Empezá ahora', href: '/registro' },
-  mostrarStaffLink = true,
-  demo = false,
-}: HeroProps) => {
-  const theme = useEmpresaTheme();
+}) => {
   const navigate = useNavigate();
 
   const sliderSettings = {
@@ -104,7 +100,7 @@ const Hero = ({
               variant="h3"
               component="h3"
               gutterBottom
-              sx={{ color: theme.palette.primary.main, fontWeight: 'bold' }}
+              sx={{ color: 'primary.main', fontWeight: 'bold' }}
             >
               {titulo}
             </Typography>
@@ -115,24 +111,13 @@ const Hero = ({
             >
               {subtitulo}
             </Typography>
-            <Button
-              variant="contained"
+            <PrimaryButton
+              onClick={() => navigate(cta.href)}
+              isActive={true}
               size="large"
-              href={cta?.href}
-              sx={{
-                fontWeight: 'bold',
-                color: theme.palette.background.default,
-                backgroundColor: theme.palette.primary.main,
-                '&:hover': {
-                  backgroundColor: theme.palette.secondary.main,
-                  borderColor: theme.palette.secondary.main,
-                  textDecoration: 'none',
-                  color: theme.palette.primary.main,
-                },
-              }}
             >
               {cta?.label}
-            </Button>
+            </PrimaryButton>
           </Parallax>
           {(mostrarStaffLink || demo) && (
             <Parallax speed={-5}>
@@ -151,7 +136,7 @@ const Hero = ({
                       if (demo) {
                         navigate('/');
                       } else {
-                        navigate('/gym/cba-gymx');
+                        navigate('/gym/demo-gymx');
                       }
                     }}
                     sx={{

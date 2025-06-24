@@ -1,6 +1,7 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import type { GeneralContextProps } from '../types/Props';
 import { Alert, Box, CircularProgress, Snackbar } from '@mui/material';
+import type { Plan } from '../types/Entities';
 
 const GeneralContext = createContext<GeneralContextProps>(
   {} as GeneralContextProps,
@@ -11,6 +12,7 @@ export const GeneralProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const [planSeleccionado, setPlanSeleccionado] = useState<Plan | null>(null);
   const [navbarText, setNavbarText] = useState('');
   const [loading, setLoading] = useState(false);
   const [snacks, setSnacks] = useState<
@@ -29,7 +31,14 @@ export const GeneralProvider = ({
 
   return (
     <GeneralContext.Provider
-      value={{ navbarText, setNavbarText, alert, setLoading }}
+      value={{
+        navbarText,
+        setNavbarText,
+        alert,
+        setLoading,
+        planSeleccionado,
+        setPlanSeleccionado,
+      }}
     >
       {snacks.map((snack) => (
         <Snackbar open={true} autoHideDuration={6000} key={snack.index}>
@@ -72,4 +81,5 @@ export const GeneralProvider = ({
   );
 };
 
-export default GeneralContext;
+// eslint-disable-next-line react-refresh/only-export-components
+export const useGeneral = () => useContext(GeneralContext);

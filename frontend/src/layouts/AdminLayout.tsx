@@ -14,9 +14,7 @@ import {
 } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-import BookIcon from '@mui/icons-material/Book';
 import PeopleIcon from '@mui/icons-material/People';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -26,9 +24,7 @@ const AdminLayout = () => {
 
   const navItems = [
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/admin/dashboard' },
-    { text: 'Libros', icon: <BookIcon />, path: '/admin/libros' },
     { text: 'Usuarios', icon: <PeopleIcon />, path: '/admin/usuarios' },
-    { text: 'Pedidos', icon: <LocalShippingIcon />, path: '/admin/pedidos' },
     {
       text: 'Volver al sitio',
       icon: <MenuBookIcon color="primary" />,

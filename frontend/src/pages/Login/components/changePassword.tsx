@@ -7,10 +7,10 @@ import {
   Typography,
 } from '@mui/material';
 import type { loginCases } from '..';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
-import GeneralContext from '../../../context/GeneralContext';
+import { useGeneral } from '../../../context/GeneralContext';
 import { theme } from '../../../theme';
 
 type ChangePassProps = {
@@ -30,7 +30,7 @@ const ChangePassword = ({ setLoginCase }: ChangePassProps) => {
     password_2: boolean;
   }>({ password_1: false, password_2: false });
 
-  const { alert, setLoading } = useContext(GeneralContext);
+  const { alert, setLoading } = useGeneral();
 
   const handleClickShowPassword = (field: 'password_1' | 'password_2') => {
     setShowPassword((prev) => ({ ...prev, [field]: !prev[field] }));

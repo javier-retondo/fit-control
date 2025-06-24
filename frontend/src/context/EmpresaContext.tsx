@@ -58,7 +58,7 @@ export type EmpresaLandingData = {
 };
 type ContextType = {
   empresa: EmpresaLandingData | null;
-  setEmpresa: (empresa: EmpresaLandingData) => void;
+  setEmpresa: (empresa: EmpresaLandingData | null) => void;
   isReady: boolean;
   setIsReady: (isReady: boolean) => void;
 };

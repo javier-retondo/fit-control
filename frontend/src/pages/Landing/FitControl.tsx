@@ -3,8 +3,17 @@ import Benefits from './components/Benefits';
 import CallToAction from './components/CallToAction';
 import GimnasiosClientes from './components/Gyms';
 import PlanesPrecios from './components/Planes';
+import { useEmpresa } from '../../context/EmpresaContext';
+import { useEffect } from 'react';
 
 const LandingFitControl = () => {
+  const { setIsReady } = useEmpresa();
+
+  useEffect(() => {
+    setIsReady(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <Hero />
@@ -53,7 +62,16 @@ const LandingFitControl = () => {
           },
         ]}
       />
-      <CallToAction />
+      <CallToAction
+        titulo="Más de 1.200 socios ya entrenan mejor con FitControl"
+        subtitulo="Gestioná clases, pagos, rutinas y acceso con una sola herramienta."
+        imagen="/img/flexo-tip.png"
+        imagenHover="/img/flexo-feliz.png"
+        fondo="/img/sede_4.webp"
+        cta={{ label: 'Empezar ahora', href: '/register' }}
+        mostrarBotonSecundario={true}
+        modo="fitcontrol"
+      />
     </>
   );
 };

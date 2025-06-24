@@ -1,18 +1,10 @@
-import {
-  Box,
-  Typography,
-  Stack,
-  Link,
-  IconButton,
-  useTheme,
-} from '@mui/material';
+import { Box, Typography, Stack, Link, IconButton } from '@mui/material';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import EmailIcon from '@mui/icons-material/Email';
-import { useEmpresa } from '../context/EmpresaContext';
+import { useEmpresa } from '../../context/EmpresaContext';
 
-const Footer = () => {
-  const theme = useTheme();
+const LandingFooter = () => {
   const { empresa } = useEmpresa();
 
   const isFitControl = !empresa?.slug || empresa.slug === 'fitcontrol';
@@ -37,15 +29,15 @@ const Footer = () => {
       href: 'https://www.instagram.com/fitcontrolapp',
       icon: <InstagramIcon />,
     },
-    { href: `https://wa.me/${empresa?.redes?.whatsapp}`, icon: <EmailIcon /> },
+    { href: `https://wa.me/543512009913`, icon: <EmailIcon /> },
   ];
 
   return (
     <Box
       component="footer"
       sx={{
-        backgroundColor: theme.palette.background.paper,
-        color: theme.palette.text.secondary,
+        backgroundColor: 'background.paper',
+        color: 'text.secondary',
         py: 6,
         px: 2,
         mt: 0,
@@ -59,19 +51,16 @@ const Footer = () => {
         maxWidth="lg"
         sx={{ mx: 'auto' }}
       >
-        {/* Logo o marca */}
         <Typography
           variant="h6"
           sx={{
-            color: theme.palette.text.primary,
+            color: 'text.primary',
             fontWeight: 'bold',
-            '&:hover': { color: theme.palette.primary.main },
+            '&:hover': { color: 'primary.main', cursor: 'pointer' },
           }}
         >
           {empresa?.nombre || 'FitControl'}
         </Typography>
-
-        {/* Links internos */}
         <Stack direction="row" spacing={3}>
           {secciones.map((s) => (
             <Link
@@ -81,23 +70,21 @@ const Footer = () => {
               color="inherit"
               sx={{
                 fontWeight: 'bold',
-                '&:hover': { color: theme.palette.primary.main },
+                '&:hover': { color: 'primary.main' },
               }}
             >
               {s.label}
             </Link>
           ))}
         </Stack>
-
-        {/* Redes sociales */}
         <Stack direction="row" spacing={1}>
           {empresa?.redes?.facebook && (
             <IconButton
               href={empresa.redes.facebook}
               target="_blank"
               sx={{
-                color: theme.palette.primary.main,
-                '&:hover': { color: theme.palette.secondary.main || '#969696' },
+                color: 'primary.main',
+                '&:hover': { color: 'secondary.main' },
               }}
             >
               <FacebookIcon />
@@ -108,8 +95,8 @@ const Footer = () => {
               href={empresa.redes.instagram}
               target="_blank"
               sx={{
-                color: theme.palette.primary.main,
-                '&:hover': { color: theme.palette.secondary.main || '#969696' },
+                color: 'primary.main',
+                '&:hover': { color: 'secondary.main' },
               }}
             >
               <InstagramIcon />
@@ -120,8 +107,8 @@ const Footer = () => {
               href={`https://wa.me/${empresa.redes.whatsapp}`}
               target="_blank"
               sx={{
-                color: theme.palette.primary.main,
-                '&:hover': { color: theme.palette.secondary.main || '#969696' },
+                color: 'primary.main',
+                '&:hover': { color: 'secondary.main' },
               }}
             >
               <EmailIcon />
@@ -134,9 +121,9 @@ const Footer = () => {
                 href={red.href}
                 target="_blank"
                 sx={{
-                  color: theme.palette.primary.main,
+                  color: 'primary.main',
                   '&:hover': {
-                    color: theme.palette.secondary.main || '#969696',
+                    color: 'secondary.main',
                   },
                 }}
               >
@@ -149,7 +136,7 @@ const Footer = () => {
       <Typography
         variant="body2"
         align="center"
-        sx={{ mt: 4, fontSize: '0.8rem', color: theme.palette.text.secondary }}
+        sx={{ mt: 4, fontSize: '0.8rem', color: 'text.secondary' }}
       >
         © {new Date().getFullYear()} {empresa?.nombre || 'FitControl'}. Todos
         los derechos reservados.
@@ -158,4 +145,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default LandingFooter;
